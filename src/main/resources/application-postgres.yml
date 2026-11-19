@@ -1,11 +1,23 @@
-# Ative com: --spring.profiles.active=postgres
+# Ative com: SPRING_PROFILES_ACTIVE=postgres
+server:
+  port: ${PORT:8080}
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/avaliaserv
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+  h2:
+    console:
+      enabled: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+
+avaliaserv:
+  cors:
+    allowed-origins: ${AVALIASERV_CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
